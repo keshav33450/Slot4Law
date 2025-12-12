@@ -1,0 +1,155 @@
+/* Auth Page Layout */
+.auth-container {
+  display: flex;
+  height: 100vh;
+  background: #ffffff;
+}
+
+.auth-left {
+  flex: 1;
+  background: #f0f4ff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.brand-title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #1e3a8a;
+  margin-bottom: 1rem;
+}
+
+.brand-icon {
+  color: #1e3a8a;
+}
+
+/* Right Side */
+.auth-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-form-container {
+  width: 80%;
+  max-width: 380px;
+}
+
+.form-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.form-subtitle {
+  color: #6b7280;
+  margin-bottom: 1.5rem;
+}
+
+/* Inputs */
+.input-group {
+  margin-bottom: 1rem;
+}
+
+.auth-input {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  background: #f9fafb;
+  font-size: 0.95rem;
+}
+
+.password-group {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Remember me */
+.remember-me {
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+/* Submit button */
+.submit-btn {
+  width: 100%;
+  padding: 0.7rem;
+  border-radius: 10px;
+  border: none;
+  font-size: 1rem;
+  background: #1e3a8a;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.submit-btn:hover {
+  background: #1a2e6c;
+}
+
+.switch-auth {
+  margin: 0.6rem 0;
+}
+
+.switch-auth-btn {
+  background: none;
+  border: none;
+  color: #2563eb;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+/* ⭐ Google Button at Bottom */
+.google-bottom-wrapper {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.google-btn-bottom {
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  color: #374151;
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 0.7rem 1rem;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+}
+
+.google-btn-bottom:hover {
+  background: #f9fafb;
+  border-color: #cbd5e0;
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+.google-btn-bottom:active {
+  transform: scale(0.98);
+}
+
+.google-logo {
+  width: 20px;
+  height: 20px;
+}
