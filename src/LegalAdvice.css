@@ -1,0 +1,472 @@
+/* ---------- PAGE SHELL ---------- */
+
+.legal-advice-page {
+  min-height: 100vh;
+  background: #f3f4f6;
+  color: #111827;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+.legal-advice-shell {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 3rem;
+}
+
+/* Top heading area */
+.legal-advice-top {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.legal-advice-title {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.2rem;
+}
+
+.legal-advice-subtitle {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.legal-advice-count {
+  font-size: 0.85rem;
+  color: #6b7280;
+  white-space: nowrap;
+}
+
+/* ---------- MAIN LAYOUT ---------- */
+
+.legal-advice-container {
+  display: flex;
+  align-items: stretch;
+  gap: 2.25rem;
+}
+
+/* Left hero (image) */
+.advice-left {
+  flex: 0 0 320px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-section-advice {
+  position: relative;
+  width: 290px;
+  height: 290px;
+}
+
+.lawyer-circle-advice {
+  width: 100%;
+  height: 100%;
+  border-radius: 999px;
+  overflow: hidden;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.18);
+}
+
+.lawyer-img-advice {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.scale-badge-advice {
+  position: absolute;
+  bottom: 14px;
+  right: 18px;
+  width: 78px;
+  height: 78px;
+  border-radius: 999px;
+  background: #eff6ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.2);
+}
+
+.scale-img-advice {
+  width: 42px;
+  height: 42px;
+}
+
+/* Decorations */
+.dec-dot-advice {
+  position: absolute;
+  border-radius: 999px;
+  background: #e5e7eb;
+}
+
+.dot-1 {
+  width: 10px;
+  height: 10px;
+  top: 18px;
+  left: 24px;
+}
+
+.dot-2 {
+  width: 8px;
+  height: 8px;
+  bottom: 38px;
+  left: 44px;
+}
+
+.dot-3 {
+  width: 12px;
+  height: 12px;
+  top: 44%;
+  right: -6px;
+}
+
+.dec-circle-advice {
+  position: absolute;
+  border-radius: 999px;
+  border: 2px dashed #e5e7eb;
+}
+
+.circle-1 {
+  width: 70px;
+  height: 70px;
+  top: -20px;
+  right: 40px;
+}
+
+.circle-2 {
+  width: 52px;
+  height: 52px;
+  bottom: -12px;
+  left: 40px;
+}
+
+/* Right content card */
+.advice-right {
+  flex: 1 1 auto;
+  background: #ffffff;
+  border-radius: 1.25rem;
+  padding: 1.6rem 1.6rem 2rem;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- SEARCH ---------- */
+
+.search-section {
+  margin-bottom: 1.1rem;
+}
+
+.search-box-advice {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: #f3f4f6;
+  border-radius: 999px;
+  padding: 0.55rem 0.9rem;
+  border: 1px solid transparent;
+  transition: all 0.15s ease;
+}
+
+.search-box-advice:focus-within {
+  border-color: #2563eb;
+  background: #ffffff;
+  box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.16);
+}
+
+.search-box-advice input {
+  border: none;
+  outline: none;
+  background: transparent;
+  width: 100%;
+  font-size: 0.9rem;
+  color: #111827;
+}
+
+.search-box-advice input::placeholder {
+  color: #9ca3af;
+}
+
+/* ---------- CATEGORIES ---------- */
+
+.category-buttons-wrapper {
+  margin-bottom: 1.4rem;
+}
+
+.category-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  max-width: 100%;
+  overflow-x: auto;
+  padding-bottom: 0.2rem;
+}
+
+.category-buttons::-webkit-scrollbar {
+  height: 6px;
+}
+
+.category-buttons::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 999px;
+}
+
+.category-btn {
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  padding: 0.35rem 0.9rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #374151;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+}
+
+.category-btn:hover {
+  border-color: #bfdbfe;
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.category-btn.active {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #f9fafb;
+  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.35);
+}
+
+/* ---------- FAQ SECTION ---------- */
+
+.faq-section {
+  border-top: 1px solid #e5e7eb;
+  padding-top: 1.2rem;
+  margin-top: 0.2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.faq-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.9rem;
+}
+
+.faq-header-row h2 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* Pagination */
+.pagination {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.page-btn {
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  padding: 0.2rem 0.55rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  min-width: 28px;
+  text-align: center;
+  transition: all 0.15s ease;
+}
+
+.page-btn:hover:not(:disabled) {
+  border-color: #bfdbfe;
+  background: #eff6ff;
+}
+
+.page-btn.active {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #ffffff;
+}
+
+.page-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* FAQ list */
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.faq-item {
+  border-radius: 0.9rem;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  overflow: hidden;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.faq-item:hover {
+  border-color: #bfdbfe;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+  background: #ffffff;
+}
+
+.faq-question {
+  padding: 0.8rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  cursor: pointer;
+}
+
+.faq-question:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+.faq-question-main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.faq-question-text {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.faq-question h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+/* Category pill on each FAQ */
+.faq-category-tag {
+  font-size: 0.7rem;
+  padding: 0.12rem 0.5rem;
+  border-radius: 999px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+}
+
+.faq-link {
+  font-size: 0.8rem;
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.faq-link:hover {
+  text-decoration: underline;
+}
+
+.faq-toggle {
+  border: none;
+  background: #e5e7eb;
+  border-radius: 999px;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.faq-toggle:hover {
+  background: #d1d5db;
+}
+
+.faq-answer {
+  padding: 0.6rem 1rem 0.9rem;
+  font-size: 0.88rem;
+  color: #4b5563;
+  line-height: 1.55;
+  border-top: 1px solid #e5e7eb;
+}
+
+/* No results */
+.no-results {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.no-results-hint {
+  margin-top: 0.4rem;
+  font-size: 0.82rem;
+  color: #9ca3af;
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+/* Tablet & small laptops */
+@media (max-width: 1024px) {
+  .legal-advice-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .legal-advice-container {
+    flex-direction: column;
+  }
+
+  .advice-left {
+    order: 2;
+  }
+
+  .advice-right {
+    order: 1;
+  }
+
+  .hero-section-advice {
+    width: 250px;
+    height: 250px;
+  }
+}
+
+/* Phones */
+@media (max-width: 640px) {
+  .legal-advice-shell {
+    padding-inline: 0.85rem;
+  }
+
+  .legal-advice-title {
+    font-size: 1.6rem;
+  }
+
+  .advice-right {
+    padding: 1.3rem 1.1rem 1.6rem;
+    border-radius: 1rem;
+  }
+
+  .hero-section-advice {
+    width: 210px;
+    height: 210px;
+  }
+
+  .faq-header-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .faq-question {
+    padding-inline: 0.8rem;
+  }
+
+  .faq-answer {
+    padding-inline: 0.8rem;
+  }
+}
