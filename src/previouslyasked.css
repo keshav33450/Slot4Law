@@ -1,0 +1,391 @@
+/* src/PreviouslyAskedQuestions.css */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.paq-page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f9f9f9 0%, #ffffff 100%);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* Header */
+.paq-header {
+  background: #ffffff;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 16px 0;
+}
+
+.paq-header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.paq-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.paq-logo-icon {
+  font-size: 24px;
+}
+
+.paq-logo-text {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.paq-nav {
+  display: flex;
+  gap: 24px;
+  flex: 1;
+  justify-content: center;
+}
+
+.paq-nav-link {
+  text-decoration: none;
+  font-size: 14px;
+  color: #4a4a4a;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.paq-nav-link:hover {
+  color: #ff6b35;
+}
+
+.paq-btn-create {
+  padding: 10px 24px;
+  border-radius: 999px;
+  background: #ff6b35;
+  color: #ffffff;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.paq-btn-create:hover {
+  background: #e55a28;
+  transform: translateY(-1px);
+}
+
+.paq-btn-profile {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #e5e5e5;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.paq-btn-profile:hover {
+  border-color: #ff6b35;
+}
+
+.paq-profile-icon {
+  font-size: 20px;
+}
+
+/* Hero Section */
+.paq-hero {
+  background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+  padding: 60px 24px;
+}
+
+.paq-hero-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.paq-hero-left {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.paq-hero-image {
+  position: relative;
+}
+
+.paq-circle-outer {
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: #1a2942;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.paq-circle-inner {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.paq-person-icon {
+  font-size: 80px;
+}
+
+.paq-badge-icon {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #d4a373, #b8925f);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  border: 4px solid #ffffff;
+}
+
+/* Decorative elements */
+.paq-circle-outer::before,
+.paq-circle-outer::after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ffa500;
+}
+
+.paq-circle-outer::before {
+  top: -30px;
+  right: 80px;
+}
+
+.paq-circle-outer::after {
+  bottom: -20px;
+  left: 60px;
+}
+
+.paq-hero-right {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.paq-hero-title {
+  font-size: 48px;
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 1.2;
+}
+
+.paq-category-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.paq-chip {
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: none;
+  background: #1a2942;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.paq-chip:hover {
+  background: #2a3952;
+}
+
+.paq-chip-active {
+  background: #ff6b35;
+}
+
+/* Questions Section */
+.paq-questions-section {
+  padding: 60px 24px;
+}
+
+.paq-questions-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  gap: 24px;
+}
+
+.paq-question-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  transition: all 0.2s;
+}
+
+.paq-question-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.paq-question-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.paq-question-category {
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: #f0f0f0;
+  color: #1a2942;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.paq-question-status {
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.paq-question-status.answered {
+  background: #d4edda;
+  color: #155724;
+}
+
+.paq-question-status.pending {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.paq-question-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 10px;
+}
+
+.paq-question-desc {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.paq-question-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-top: 12px;
+  border-top: 1px solid #e5e5e5;
+}
+
+.paq-question-date {
+  font-size: 13px;
+  color: #888;
+}
+
+.paq-question-answers {
+  font-size: 13px;
+  color: #ff6b35;
+  font-weight: 600;
+}
+
+.paq-btn-view {
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: 1px solid #ff6b35;
+  background: transparent;
+  color: #ff6b35;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.paq-btn-view:hover {
+  background: #ff6b35;
+  color: #ffffff;
+}
+
+.paq-empty-state {
+  text-align: center;
+  padding: 60px 24px;
+  color: #888;
+  font-size: 16px;
+}
+
+/* Responsive */
+@media (max-width: 968px) {
+  .paq-hero-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .paq-hero-title {
+    font-size: 36px;
+    text-align: center;
+  }
+
+  .paq-category-chips {
+    justify-content: center;
+  }
+
+  .paq-nav {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .paq-circle-outer {
+    width: 220px;
+    height: 220px;
+  }
+
+  .paq-circle-inner {
+    width: 160px;
+    height: 160px;
+  }
+
+  .paq-person-icon {
+    font-size: 60px;
+  }
+
+  .paq-badge-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 28px;
+  }
+
+  .paq-hero-title {
+    font-size: 28px;
+  }
+}

@@ -62,13 +62,11 @@ export default function LegalForum() {
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (u) => {
       setCurrentUser(u);
-      // helpful debug when testing permissions:
-      // console.log("Auth state changed:", u);
     });
     return () => unsub();
   }, []);
 
-  // fetch all posts on mount (simple approach)
+  // fetch all posts on mount
   useEffect(() => {
     const fetchAllPosts = async () => {
       setLoading(true);
@@ -106,7 +104,7 @@ export default function LegalForum() {
     fetchAllPosts();
   }, []);
 
-  // helper to convert Firestore timestamps to JS Date
+  // Helper to convert Firestore timestamp/Date/string -> Date
   const toJsDate = (ts) => {
     if (!ts) return null;
     if (ts.toDate) return ts.toDate();
@@ -114,9 +112,10 @@ export default function LegalForum() {
     return new Date(ts);
   };
 
-  // client-side filtering and sorting
+  // Client-side filtered & sorted posts
   const posts = useMemo(() => {
     let list = [...rawPosts];
+
     if (selectedCategory && selectedCategory !== "all") {
       list = list.filter((p) => {
         const pCat = (p.category || "").toString().trim().toLowerCase();
@@ -125,11 +124,17 @@ export default function LegalForum() {
     }
 
     if (sortBy === "recent") {
-      list.sort((a, b) => (toJsDate(b.createdAt)?.getTime() || 0) - (toJsDate(a.createdAt)?.getTime() || 0));
+      list.sort((a, b) => {
+        const da = toJsDate(a.createdAt)?.getTime() || 0;
+        const db = toJsDate(b.createdAt)?.getTime() || 0;
+        return db - da;
+      });
     } else if (sortBy === "popular") {
       list.sort((a, b) => {
         if ((b.votes || 0) !== (a.votes || 0)) return (b.votes || 0) - (a.votes || 0);
-        return (toJsDate(b.createdAt)?.getTime() || 0) - (toJsDate(a.createdAt)?.getTime() || 0);
+        const da = toJsDate(a.createdAt)?.getTime() || 0;
+        const db = toJsDate(b.createdAt)?.getTime() || 0;
+        return db - da;
       });
     }
 
@@ -175,19 +180,22 @@ export default function LegalForum() {
     }
   };
 
-  // Upvote/downvote
-  const handleVote = async (postId, type, e) => {
-    if (e) e.stopPropagation();
+  // Upvote/Downvote
+  const handleVote = async (postId, type) => {
     try {
       const postRef = doc(db, "forumPosts", postId);
-      await updateDoc(postRef, { votes: increment(type === "upvote" ? 1 : -1) });
-      setRawPosts((prev) => prev.map((p) => (p.id === postId ? { ...p, votes: (p.votes || 0) + (type === "upvote" ? 1 : -1) } : p)));
+      await updateDoc(postRef, {
+        votes: increment(type === "upvote" ? 1 : -1),
+      });
+
+      // optimistic local update
+      setRawPosts((prev) => prev.map(p => p.id === postId ? { ...p, votes: (p.votes || 0) + (type === "upvote" ? 1 : -1) } : p));
     } catch (err) {
       console.error("Vote error:", err);
     }
   };
 
-  // Open post details and fetch comments (subcollection)
+  // Open post details + fetch comments
   const openPostDetails = async (post) => {
     setSelectedPost(post);
     try {
@@ -200,7 +208,7 @@ export default function LegalForum() {
     }
   };
 
-  // Add comment (reply) — requires auth
+  // Add comment (reply)
   const handleAddComment = async (e) => {
     e.preventDefault();
     if (!newComment.trim() || !selectedPost) return;
@@ -226,7 +234,7 @@ export default function LegalForum() {
       // increment reply count
       await updateDoc(doc(db, "forumPosts", selectedPost.id), { replies: increment(1) });
 
-      // refresh comments and posts list
+      // refresh comments and posts
       await refreshPostAndComments(selectedPost);
 
       setNewComment("");
@@ -240,7 +248,7 @@ export default function LegalForum() {
     try {
       await updateDoc(doc(db, "forumPosts", postId), { ...updates, updatedAt: serverTimestamp() });
 
-      // refresh all posts and selectedPost
+      // refresh posts and selectedPost
       const pSnap = await getDocs(collection(db, "forumPosts"));
       const updatedPosts = pSnap.docs.map((d) => ({ id: d.id, ...d.data() }));
       setRawPosts(updatedPosts);
@@ -258,10 +266,8 @@ export default function LegalForum() {
     if (!window.confirm("Delete this post permanently?")) return;
     try {
       await deleteDoc(doc(db, "forumPosts", postId));
-
       const pSnap = await getDocs(collection(db, "forumPosts"));
       setRawPosts(pSnap.docs.map((d) => ({ id: d.id, ...d.data() })));
-
       if (selectedPost?.id === postId) setSelectedPost(null);
     } catch (err) {
       console.error("Delete post error:", err);
@@ -272,16 +278,13 @@ export default function LegalForum() {
   // Refresh both comments and posts after reply edit/delete
   const refreshPostAndComments = async (post) => {
     try {
-      // refresh comments for opened post
       const cSnap = await getDocs(collection(db, "forumPosts", post.id, "comments"));
       setComments(cSnap.docs.map((d) => ({ id: d.id, ...d.data() })));
 
-      // refresh posts list to get updated replies counts
       const pSnap = await getDocs(collection(db, "forumPosts"));
       const updatedPosts = pSnap.docs.map((d) => ({ id: d.id, ...d.data() }));
       setRawPosts(updatedPosts);
 
-      // update selectedPost to the newest data
       const updated = updatedPosts.find((p) => p.id === post.id);
       if (updated) setSelectedPost(updated);
     } catch (err) {
@@ -289,7 +292,7 @@ export default function LegalForum() {
     }
   };
 
-  // Post modal editing state: keep form fields in sync when selectedPost changes
+  // sync modal edit fields when selectedPost changes
   useEffect(() => {
     if (selectedPost) {
       setIsEditingPost(false);
@@ -311,7 +314,6 @@ export default function LegalForum() {
     ((selectedPost.authorEmail && currentUser.email && currentUser.email === selectedPost.authorEmail) ||
       (selectedPost.authorId && currentUser.uid && currentUser.uid === selectedPost.authorId));
 
-  // helpful debug: categories present in DB
   const storedCategories = useMemo(() => {
     const setCats = new Set(rawPosts.map((p) => (p.category || "").toString().trim().toLowerCase()));
     return Array.from(setCats);
@@ -325,17 +327,13 @@ export default function LegalForum() {
         <div className="forum-header">
           <h1>Legal Community Forum</h1>
           <p>Ask questions, share experiences, and get advice from the community</p>
-          <button className="btn-new-post" onClick={() => setShowNewPostModal(true)}>
-            + Ask a Question
-          </button>
+          <button className="btn-new-post" onClick={() => setShowNewPostModal(true)}>+ Ask a Question</button>
         </div>
 
         <div className="forum-controls">
           <div className="category-tabs">
             {ALL_CATEGORIES.map((cat) => (
-              <button key={cat.id} className={`tab ${selectedCategory === cat.id ? "active" : ""}`} onClick={() => setSelectedCategory(cat.id)}>
-                {cat.label}
-              </button>
+              <button key={cat.id} className={`tab ${selectedCategory === cat.id ? "active" : ""}`} onClick={() => setSelectedCategory(cat.id)}>{cat.label}</button>
             ))}
           </div>
 
@@ -363,9 +361,9 @@ export default function LegalForum() {
             return (
               <div key={post.id} className="post-card" onClick={() => openPostDetails(post)}>
                 <div className="post-votes">
-                  <button onClick={(e) => { e.stopPropagation(); handleVote(post.id, "upvote", e); }}><ThumbsUp size={18} /></button>
+                  <button onClick={(e) => { e.stopPropagation(); handleVote(post.id, "upvote"); }}><ThumbsUp size={18} /></button>
                   <span className="vote-count">{post.votes ?? 0}</span>
-                  <button onClick={(e) => { e.stopPropagation(); handleVote(post.id, "downvote", e); }}><ThumbsDown size={18} /></button>
+                  <button onClick={(e) => { e.stopPropagation(); handleVote(post.id, "downvote"); }}><ThumbsDown size={18} /></button>
                 </div>
 
                 <div className="post-content">
@@ -375,7 +373,7 @@ export default function LegalForum() {
                   <div className="post-meta">
                     <span className="category-badge">{post.category}</span>
                     <span className="author">by {post.author}</span>
-                    <span className="time">{createdAtDate ? toJsDate(post.createdAt).toLocaleDateString() : "—"}</span>
+                    <span className="time">{createdAtDate ? createdAtDate.toLocaleDateString() : "—"}</span>
                     <span className="replies"><MessageCircle size={14} /> {post.replies ?? 0} replies</span>
                   </div>
 
@@ -464,7 +462,6 @@ export default function LegalForum() {
                 <>
                   <h2>{selectedPost.title}</h2>
 
-                  {/* Owner actions inside modal */}
                   {canEditSelectedPost && (
                     <div className="modal-post-owner-actions" style={{ display: "flex", gap: 8, marginTop: 8 }}>
                       <button className="btn-small" onClick={(e) => { e.stopPropagation(); setIsEditingPost(true); }}>Edit Post</button>
@@ -509,6 +506,7 @@ export default function LegalForum() {
             </div>
           </div>
         )}
+
       </div>
     </div>
   );
