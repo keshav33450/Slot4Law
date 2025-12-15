@@ -10,6 +10,7 @@ import AboutUs from "./aboutus";
 import PrivateRoute from "./privateroute";
 import LegalForum from "./LegalForum";
 import PreviouslyAskedQuestions from "./PreviouslyAskedQuestions";
+import MyBookings from "./mybookings";
 
 function App() {
   return (
@@ -69,12 +70,22 @@ function App() {
 
         <Route path="/legal-forum" element={<LegalForum />} />
 
-        {/* ✅ My Questions */}
+        {/* My Questions */}
         <Route
           path="/previous-questions"
           element={
             <PrivateRoute>
               <PreviouslyAskedQuestions />
+            </PrivateRoute>
+          }
+        />
+
+        {/* ✅ My Bookings (FIXED) */}
+        <Route
+          path="/my-bookings"
+          element={
+            <PrivateRoute>
+              <MyBookings />
             </PrivateRoute>
           }
         />

@@ -11,14 +11,11 @@ const Navbar = () => {
 
   const [avatarError, setAvatarError] = useState(false);
 
-  // Determine display name
   const displayName =
     user?.name || user?.displayName || user?.email || "User";
 
-  // Raw Google profile image URL (Firebase returns photoURL)
   const rawAvatar = user?.photoURL || user?.picture || null;
 
-  // Final avatar URL (fallback → ui-avatars)
   const avatarUrl =
     !avatarError && rawAvatar
       ? rawAvatar
@@ -45,22 +42,18 @@ const Navbar = () => {
 
         {/* Navigation */}
         <ul className="navbar-menu">
-          <li>
-            <Link to="/home">Home</Link>
-          </li>
-          <li>
-            <Link to="/find-lawyer">Find a Lawyer</Link>
-          </li>
-          <li>
-            <Link to="/ask-question">Ask a Free Question</Link>
-          </li>
-          <li>
-            <Link to="/legal-advice">Legal Advice</Link>
-          </li>
+          <li><Link to="/home">Home</Link></li>
+          <li><Link to="/find-lawyer">Find a Lawyer</Link></li>
+          <li><Link to="/ask-question">Ask a Free Question</Link></li>
+          <li><Link to="/legal-advice">Legal Advice</Link></li>
+          <li><Link to="/about-us">About Us</Link></li>
 
-          <li>
-            <Link to="/about-us">About Us</Link>
-          </li>
+          {/* ✅ My Bookings */}
+          {user && (
+            <li>
+              <Link to="/my-bookings">My Bookings</Link>
+            </li>
+          )}
         </ul>
 
         {/* Right side */}
@@ -87,17 +80,16 @@ const Navbar = () => {
                 src={avatarUrl}
                 alt="profile"
                 className="user-avatar"
-                onError={() => setAvatarError(true)} // If image fails, use fallback
+                onError={() => setAvatarError(true)}
               />
-
               <span className="user-name">{displayName}</span>
-
               <button className="logout-btn" onClick={handleLogout}>
                 Logout
               </button>
             </div>
           )}
         </div>
+
       </div>
     </nav>
   );
