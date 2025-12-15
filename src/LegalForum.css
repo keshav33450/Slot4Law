@@ -387,3 +387,101 @@
   outline: none;
   box-shadow: 0 0 0 2px rgba(15, 37, 87, 0.2);
 }
+/* Reply container */
+.comment {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-top: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Header */
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.comment-author {
+  font-weight: 600;
+  color: #0f2557;
+}
+
+.comment-time {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+/* Owner action buttons container */
+.comment-owner-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+/* Base reply button */
+.comment-owner-actions button {
+  padding: 4px 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  background: #eef2ff;
+  color: #1e3a8a;
+}
+
+/* Edit button hover */
+.comment-owner-actions button:hover {
+  background: #e0e7ff;
+  transform: translateY(-1px);
+}
+
+/* Delete button */
+.comment-owner-actions button:last-child {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+/* Delete hover */
+.comment-owner-actions button:last-child:hover {
+  background: #fecaca;
+}
+
+/* Edit mode action buttons */
+.comment-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.comment-actions button {
+  padding: 6px 14px;
+  border-radius: 16px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+/* Save */
+.comment-actions button:last-child {
+  background: #0f2557;
+  color: #ffffff;
+}
+
+/* Cancel */
+.comment-actions button:first-child {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+/* Hover effects */
+.comment-actions button:hover {
+  transform: translateY(-1px);
+  opacity: 0.95;
+}
