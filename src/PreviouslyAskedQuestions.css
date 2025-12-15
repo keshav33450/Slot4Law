@@ -389,3 +389,40 @@
     font-size: 28px;
   }
 }
+/* Back navigation button */
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  background: transparent;
+  color: #0f2557;
+
+  border: 2px solid #0f2557;
+  border-radius: 24px;
+
+  padding: 8px 18px;
+  font-size: 0.95rem;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+/* Hover effect */
+.btn-back:hover {
+  background: #0f2557;
+  color: #ffffff;
+  transform: translateX(-2px);
+}
+
+/* Focus accessibility */
+.btn-back:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(15, 37, 87, 0.25);
+}
+
+/* Optional active click effect */
+.btn-back:active {
+  transform: translateX(0);
+}

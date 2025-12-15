@@ -1,4 +1,3 @@
-// src/App.js
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import HomePage from "./home";
 import Login from "./login";
@@ -6,10 +5,11 @@ import SignUp from "./signup";
 import FindLawyer from "./findlawyer";
 import BookConsultation from "./bookconsultation";
 import AskQuestion from "./askquestion";
-import LegalAdvice from './LegalAdvice';
+import LegalAdvice from "./LegalAdvice";
 import AboutUs from "./aboutus";
 import PrivateRoute from "./privateroute";
-import LegalForum from './LegalForum';
+import LegalForum from "./LegalForum";
+import PreviouslyAskedQuestions from "./PreviouslyAskedQuestions";
 
 function App() {
   return (
@@ -28,6 +28,7 @@ function App() {
             </PrivateRoute>
           }
         />
+
         <Route
           path="/find-lawyer"
           element={
@@ -36,6 +37,7 @@ function App() {
             </PrivateRoute>
           }
         />
+
         <Route
           path="/book-consultation"
           element={
@@ -44,6 +46,7 @@ function App() {
             </PrivateRoute>
           }
         />
+
         <Route
           path="/ask-question"
           element={
@@ -52,7 +55,9 @@ function App() {
             </PrivateRoute>
           }
         />
+
         <Route path="/legal-advice" element={<LegalAdvice />} />
+
         <Route
           path="/about-us"
           element={
@@ -61,7 +66,18 @@ function App() {
             </PrivateRoute>
           }
         />
+
         <Route path="/legal-forum" element={<LegalForum />} />
+
+        {/* ✅ My Questions */}
+        <Route
+          path="/previous-questions"
+          element={
+            <PrivateRoute>
+              <PreviouslyAskedQuestions />
+            </PrivateRoute>
+          }
+        />
 
         {/* Default */}
         <Route path="/" element={<Navigate to="/login" replace />} />

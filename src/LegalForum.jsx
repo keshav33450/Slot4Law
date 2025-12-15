@@ -1,6 +1,7 @@
 // src/LegalForum.jsx
 import React, { useState, useEffect, useMemo } from "react";
 import { ThumbsUp, ThumbsDown, MessageCircle, Send } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import "./LegalForum.css";
 
@@ -32,6 +33,7 @@ const ALL_CATEGORIES = [
 ];
 
 export default function LegalForum() {
+    const navigate = useNavigate();
   const [rawPosts, setRawPosts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [sortBy, setSortBy] = useState("recent");
@@ -309,12 +311,24 @@ export default function LegalForum() {
         <div className="forum-header">
           <h1>Legal Community Forum</h1>
           <p>Ask questions, share experiences, and get advice</p>
-          <button
-            className="btn-new-post"
-            onClick={() => setShowNewPostModal(true)}
-          >
-            + Ask a Question
-          </button>
+         <div className="forum-header-actions">
+  <div className="forum-header-actions">
+  <button
+  className="btn-secondary"
+  onClick={() => {
+    if (!currentUser) {
+      alert("Please login to view your questions");
+      return;
+    }
+navigate("/previous-questions");
+  }}
+>
+  My Questions
+</button>
+ <button className="btn-new-post" onClick={() => setShowNewPostModal(true)} > + Ask a Question </button>
+</div>
+</div>
+
         </div>
 
         {/* CATEGORY & SORT */}
@@ -659,3 +673,4 @@ export default function LegalForum() {
     </div>
   );
 }
+

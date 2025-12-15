@@ -323,3 +323,67 @@
     flex-direction: row;
   }
 }
+.forum-header-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+.btn-secondary {
+  background: #ffffff;
+  color: #0f2557;
+  border: 2px solid #0f2557;
+  padding: 0.8rem 1.8rem;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  background: #0f2557;
+  color: white;
+}
+/* Container holding Edit & Delete */
+.post-owner-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+/* Base small button */
+.btn-small {
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+/* Edit button hover */
+.btn-small:hover {
+  background: #e2e8f0;
+  transform: translateY(-1px);
+}
+
+/* Delete button */
+.btn-danger {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+/* Delete hover */
+.btn-danger:hover {
+  background: #fecaca;
+  transform: translateY(-1px);
+}
+
+/* Optional: focus state */
+.btn-small:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(15, 37, 87, 0.2);
+}
