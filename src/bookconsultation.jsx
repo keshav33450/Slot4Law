@@ -1,4 +1,15 @@
 // src/BookConsultation.jsx
+// 🔥 Firebase
+import { auth } from "./firebase";
+import { db } from "./firebase";
+
+// 🔥 Firestore helpers
+import {
+  doc,
+  setDoc,
+  serverTimestamp
+} from "firebase/firestore";
+
 import React, { useState, useEffect, useMemo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AlertCircle, Phone, ExternalLink } from "lucide-react";
@@ -215,112 +226,65 @@ const BookConsultation = () => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
+const handleSubmit = async () => {
+    if (!selectedDate) return alert("Select a date");
+    if (!formData.firstName || !formData.email) return alert("Fill all fields");
 
-  const handleSubmit = async (e) => {
-    if (e) e.preventDefault();
-    if (!selectedDate) { alert("Please select a date."); return; }
-    if (!formData.firstName || !formData.lastName || !formData.email || !formData.phone || !formData.legalMatter || !formData.caseType) {
-      alert("Please fill in all required fields.");
-      return;
-    }
+    const user = auth.currentUser;
+    if (!user) return alert("Login required");
 
-    // extract lawyer email
-    const lawyerEmail = getEmail(lawyerFromState) || lawyerFromState?.email || lawyerFromState?.Email || lawyerFromState?.id || "";
-
-    const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email || "").trim());
-    if (!isValidEmail(formData.email)) { alert("Please provide a valid email address for yourself."); return; }
-    if (!(lawyerEmail && isValidEmail(lawyerEmail))) {
-      alert("Lawyer email address missing or invalid. Please contact support or choose another lawyer.");
-      console.error("Invalid/missing lawyer email:", { lawyerFromState });
-      return;
-    }
-
-    // Check if slot is booked
-    const bookingDateStr = formatDateISO(selectedDate);
-    if (isSlotBooked(bookingDateStr, selectedTime)) {
-      alert("⚠️ This time slot has just been booked. Please choose another time.");
-      await fetchBookedSlots();
-      return;
-    }
+    const lawyerEmail = getEmail(lawyerFromState);
+    const bookingDate = formatDateISO(selectedDate);
+    const slotId = `${lawyerEmail}_${bookingDate}_${selectedTime}`;
 
     setIsSubmitting(true);
 
+    // 🔐 SLOT LOCK
     try {
-      const payload = {
-        lawyer: {
-          name: getField(lawyerFromState, "name") || "Unknown Lawyer",
-          email: lawyerEmail,
-          specialization: getField(lawyerFromState, "specialization") || "",
-          consultationFee: getField(lawyerFromState, "consultationFee") || getField(lawyerFromState, "fee") || "Not specified",
-        },
-        booking: {
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          email: formData.email,
-          phoneCode: formData.phoneCode,
-          phone: formData.phone,
-          phoneFull: `${formData.phoneCode} ${formData.phone}`,
-          date: bookingDateStr,
-          time: selectedTime,
-          timezone: formData.timezone,
-          legalMatter: formData.legalMatter,
-          typeOfMatter: formData.typeOfMatter,
-          caseType: formData.caseType,
-          caseSummary: formData.caseSummary,
-        }
-      };
-
-      console.log("📤 booking payload", payload);
-
-      const res = await fetch("http://localhost:5000/api/book-consultation", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      const text = await res.text();
-      let body = null;
-      try { body = text ? JSON.parse(text) : null; } catch { body = text; }
-      console.log("📥 server response", res.status, body);
-
-      if (!res.ok) {
-        const msg = (body && (body.message || body.error)) || text || `Server ${res.status}`;
-        alert("Booking failed: " + msg);
-        setIsSubmitting(false);
-        return;
-      }
-
-      const result = body || {};
-      if (!result.success) {
-        alert("Booking failed: " + (result.message || "Unknown error"));
-        setIsSubmitting(false);
-        return;
-      }
-
-      // --- SUCCESS: show in-app confirmation instead of alert ---
-      setBookingConfirmation({
-        show: true,
-        date: bookingDateStr,
+      await setDoc(doc(db, "bookings", slotId), {
+        lawyerEmail,
+        lawyerName: getField(lawyerFromState, "name"),
+        date: bookingDate,
         time: selectedTime,
-        lawyerName: payload.lawyer.name,
+        userId: user.uid,
+        userEmail: user.email,
+        createdAt: serverTimestamp(),
       });
-
-      // auto hide after 8s
-      setTimeout(() => {
-        setBookingConfirmation((prev) => (prev ? { ...prev, show: false } : prev));
-      }, 8000);
-
-      // refresh booked slots so other users see the change
-      fetchBookedSlots();
-
-      // DO NOT navigate away immediately; user can click "View booking" button
-      // navigate("/find-lawyer");
     } catch (err) {
-      console.error("Booking error", err);
-      alert("❌ " + (err.message || "Failed to book consultation"));
-    } finally {
+      if (err.code === "permission-denied") {
+        alert("Slot already booked");
+        fetchBookedSlots();
+        setIsSubmitting(false);
+        return;
+      }
+      alert("Booking failed");
       setIsSubmitting(false);
+      return;
     }
+
+    // 📧 EMAIL BACKEND (unchanged)
+    await fetch("http://localhost:5000/api/book-consultation", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        lawyer: { name: getField(lawyerFromState, "name"), email: lawyerEmail },
+        booking: {
+          ...formData,
+          date: bookingDate,
+          time: selectedTime,
+        },
+      }),
+    });
+
+    setBookingConfirmation({
+      show: true,
+      date: bookingDate,
+      time: selectedTime,
+      lawyerName: getField(lawyerFromState, "name"),
+    });
+
+    fetchBookedSlots();
+    setIsSubmitting(false);
   };
 
   if (!lawyerFromState) {
