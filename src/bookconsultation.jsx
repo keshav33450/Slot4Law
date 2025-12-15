@@ -49,6 +49,7 @@ const BookConsultation = () => {
   });
 
   const [showFullBio, setShowFullBio] = useState(false);
+const [alertModal, setAlertModal] = useState(null);
 
   // confirmation state: null or { show:true, date, time, lawyerName }
   const [bookingConfirmation, setBookingConfirmation] = useState(null);
@@ -226,66 +227,84 @@ const BookConsultation = () => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
+  const showAlert = (message, type = "error") => {
+  setAlertModal({ show: true, message, type });
+  setTimeout(() => {
+    setAlertModal(null);
+  }, 4000);
+};
+
 const handleSubmit = async () => {
-    if (!selectedDate) return alert("Select a date");
-    if (!formData.firstName || !formData.email) return alert("Fill all fields");
+  if (!selectedDate) {
+    showAlert("Please select a date");
+    return;
+  }
+  
+  if (!formData.firstName || !formData.email) {
+    showAlert("Please fill in all required fields");
+    return;
+  }
 
-    const user = auth.currentUser;
-    if (!user) return alert("Login required");
+  const user = auth.currentUser;
+  if (!user) {
+    showAlert("You must be logged in to book a consultation");
+    return;
+  }
 
-    const lawyerEmail = getEmail(lawyerFromState);
-    const bookingDate = formatDateISO(selectedDate);
-    const slotId = `${lawyerEmail}_${bookingDate}_${selectedTime}`;
+  const lawyerEmail = getEmail(lawyerFromState);
+  const bookingDate = formatDateISO(selectedDate);
+  const slotId = `${lawyerEmail}_${bookingDate}_${selectedTime}`;
 
-    setIsSubmitting(true);
+  setIsSubmitting(true);
 
-    // 🔐 SLOT LOCK
-    try {
-      await setDoc(doc(db, "bookings", slotId), {
-        lawyerEmail,
-        lawyerName: getField(lawyerFromState, "name"),
-        date: bookingDate,
-        time: selectedTime,
-        userId: user.uid,
-        userEmail: user.email,
-        createdAt: serverTimestamp(),
-      });
-    } catch (err) {
-      if (err.code === "permission-denied") {
-        alert("Slot already booked");
-        fetchBookedSlots();
-        setIsSubmitting(false);
-        return;
-      }
-      alert("Booking failed");
+  // 🔐 SLOT LOCK
+  try {
+    await setDoc(doc(db, "bookings", slotId), {
+      lawyerEmail,
+      lawyerName: getField(lawyerFromState, "name"),
+      date: bookingDate,
+      time: selectedTime,
+      userId: user.uid,
+      userEmail: user.email,
+      createdAt: serverTimestamp(),
+    });
+  } catch (err) {
+    if (err.code === "permission-denied") {
+      showAlert("⚠️ This slot has just been booked by another user. Please choose a different time.");
+      fetchBookedSlots();
       setIsSubmitting(false);
       return;
     }
-
-    // 📧 EMAIL BACKEND (unchanged)
-    await fetch("http://localhost:5000/api/book-consultation", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        lawyer: { name: getField(lawyerFromState, "name"), email: lawyerEmail },
-        booking: {
-          ...formData,
-          date: bookingDate,
-          time: selectedTime,
-        },
-      }),
-    });
-
-    setBookingConfirmation({
-      show: true,
-      date: bookingDate,
-      time: selectedTime,
-      lawyerName: getField(lawyerFromState, "name"),
-    });
-
-    fetchBookedSlots();
+    showAlert("Booking failed. Please try again.");
     setIsSubmitting(false);
-  };
+    return;
+  }
+
+  // 📧 EMAIL BACKEND
+  await fetch("http://localhost:5000/api/book-consultation", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      lawyer: { name: getField(lawyerFromState, "name"), email: lawyerEmail },
+      booking: {
+        ...formData,
+        date: bookingDate,
+        time: selectedTime,
+      },
+    }),
+  });
+
+  setBookingConfirmation({
+    show: true,
+    date: bookingDate,
+    time: selectedTime,
+    lawyerName: getField(lawyerFromState, "name"),
+  });
+
+  fetchBookedSlots();
+  setIsSubmitting(false);
+};
+
 
   if (!lawyerFromState) {
     return (
@@ -486,7 +505,7 @@ const handleSubmit = async () => {
         </div>
       </div>
 
-      {/* ---------- In-app confirmation (Google-pay-like) ---------- */}
+           {/* ---------- In-app confirmation (Google-pay-like) ---------- */}
       {bookingConfirmation && bookingConfirmation.show && (
         <div className="booking-confirmation-overlay" role="dialog" aria-live="polite">
           <div className="booking-confirmation-card">
@@ -502,9 +521,8 @@ const handleSubmit = async () => {
               <button
                 className="conf-btn view-btn"
                 onClick={() => {
-                  // Example: navigate to bookings page. Replace with your route.
                   setBookingConfirmation(null);
-                  navigate("/my-bookings"); // make sure you have this route
+                  navigate("/my-bookings");
                 }}
               >
                 View booking
@@ -515,6 +533,32 @@ const handleSubmit = async () => {
                 onClick={() => setBookingConfirmation(null)}
               >
                 Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ---------- Alert Modal ---------- */}
+      {alertModal && alertModal.show && (
+        <div className="booking-confirmation-overlay" role="dialog" aria-live="assertive">
+          <div className="booking-confirmation-card alert-card">
+            <div className={`check-circle ${alertModal.type === "error" ? "error-circle" : "info-circle"}`}>
+              {alertModal.type === "error" ? "✕" : "ℹ"}
+            </div>
+            <div className="confirmation-title">
+              {alertModal.type === "error" ? "Oops!" : "Notice"}
+            </div>
+            <div className="confirmation-details">
+              <div>{alertModal.message}</div>
+            </div>
+
+            <div className="confirmation-actions">
+              <button
+                className="conf-btn close-btn-full"
+                onClick={() => setAlertModal(null)}
+              >
+                Got it
               </button>
             </div>
           </div>
