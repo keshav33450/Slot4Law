@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -69,7 +69,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-=======
+
 # Legalmeet
 LegalMeet is a modern digital platform designed to make legal help simple, fast, and accessible for everyone. Whether you're dealing with a legal dispute, seeking professional advice, or looking for the right lawyer, LegalMeet brings everything together in one seamless experience.
->>>>>>> e6ea7a5fcdf840314372f8490f5238c33061d67e
+
