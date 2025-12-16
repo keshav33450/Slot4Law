@@ -184,29 +184,39 @@ const AskQuestion = () => {
           )}
 
           {/* Input Area */}
-          <div className="input-area">
-            <div className="input-wrapper">
-              <input
-                type="text"
-                placeholder="Type your question here......"
-                value={inputMessage}
-                onChange={(e) => setInputMessage(e.target.value)}
-                onKeyPress={handleKeyPress}
-                disabled={isLoading}
-              />
-              <button 
-                className="send-button"
-                onClick={handleSendMessage}
-                disabled={isLoading || !inputMessage.trim()}
-              >
-                <Send size={24} />
-              </button>
-            </div>
-          </div>
-        </div>
+<div className="input-area">
+  <div className="input-wrapper">
+    <input
+      type="text"
+      placeholder="Type your question here......"
+      value={inputMessage}
+      onChange={(e) => setInputMessage(e.target.value)}
+      onKeyPress={handleKeyPress}
+      disabled={isLoading}
+    />
+    <button 
+      className="send-button"
+      onClick={handleSendMessage}
+      disabled={isLoading || !inputMessage.trim()}
+    >
+      <Send size={24} />
+    </button>
+  </div>
+
+  {/* AI Disclaimer */}
+  <div className="ai-disclaimer-banner">
+    <div className="disclaimer-icon-small">⚠️</div>
+    <p>
+      <strong>Disclaimer:</strong> This is an AI-generated response and should not be considered as legal advice. 
+      For professional legal guidance and to proceed with your case, please consult a qualified lawyer through our platform.
+    </p>
+  </div>
+</div>
       </div>
     </div>
-  );
+  </div>
+);
 };
 
 export default AskQuestion;
+

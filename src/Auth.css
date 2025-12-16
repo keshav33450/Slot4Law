@@ -153,3 +153,68 @@
   width: 20px;
   height: 20px;
 }
+/* AI Disclaimer Banner */
+.ai-disclaimer-banner {
+  background: linear-gradient(135deg, #fff9e6 0%, #fff3cd 100%);
+  border-left: 4px solid #ffc107;
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-top: 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  box-shadow: 0 2px 8px rgba(255, 193, 7, 0.15);
+  animation: fadeInUp 0.4s ease;
+}
+
+.disclaimer-icon-small {
+  font-size: 22px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.ai-disclaimer-banner p {
+  margin: 0;
+  font-size: 13px;
+  color: #664d03;
+  line-height: 1.6;
+}
+
+.ai-disclaimer-banner strong {
+  color: #0f2557;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .ai-disclaimer-banner {
+    padding: 12px 14px;
+    gap: 10px;
+    margin-top: 16px;
+  }
+  
+  .disclaimer-icon-small {
+    font-size: 20px;
+  }
+  
+  .ai-disclaimer-banner p {
+    font-size: 12px;
+  }
+  
+  .ai-disclaimer-banner strong {
+    font-size: 13px;
+  }
+}

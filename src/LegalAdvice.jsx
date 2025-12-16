@@ -140,7 +140,8 @@ const LegalAdvice = () => {
         </header>
 
         <section className="legal-advice-container">
-          <aside className="advice-left" aria-hidden="true">
+          {/* Sticky Left Sidebar */}
+          <aside className="advice-left">
             <div className="hero-section-advice">
               <div className="lawyer-circle-advice">
                 <img
@@ -164,6 +165,7 @@ const LegalAdvice = () => {
             </div>
           </aside>
 
+          {/* Right Content */}
           <section className="advice-right">
             <div className="category-buttons-wrapper">
               <div className="category-buttons">
@@ -182,11 +184,28 @@ const LegalAdvice = () => {
               </div>
             </div>
 
+            {/* Premium Join Forum Button */}
             <button 
               className="btn-forum"
               onClick={() => navigate('/legal-forum')}
             >
-              💬 Join Community Forum
+              <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                width="20" 
+                height="20" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+              >
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+              Join Community Forum
             </button>
 
             <div className="faq-section">

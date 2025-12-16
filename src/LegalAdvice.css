@@ -4,8 +4,7 @@
   min-height: 100vh;
   background: #f3f4f6;
   color: #111827;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 .legal-advice-shell {
@@ -28,6 +27,7 @@
   font-weight: 700;
   letter-spacing: -0.02em;
   margin-bottom: 0.2rem;
+  color: #0f2557;
 }
 
 .legal-advice-subtitle {
@@ -45,16 +45,19 @@
 
 .legal-advice-container {
   display: flex;
-  align-items: stretch;
+  align-items: flex-start;
   gap: 2.25rem;
 }
 
-/* Left hero (image) */
+/* 🔥 Sticky Left Sidebar */
 .advice-left {
   flex: 0 0 320px;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  position: sticky;
+  top: 100px;
+  align-self: flex-start;
 }
 
 .hero-section-advice {
@@ -155,42 +158,6 @@
   flex-direction: column;
 }
 
-/* ---------- SEARCH ---------- */
-
-.search-section {
-  margin-bottom: 1.1rem;
-}
-
-.search-box-advice {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  background: #f3f4f6;
-  border-radius: 999px;
-  padding: 0.55rem 0.9rem;
-  border: 1px solid transparent;
-  transition: all 0.15s ease;
-}
-
-.search-box-advice:focus-within {
-  border-color: #2563eb;
-  background: #ffffff;
-  box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.16);
-}
-
-.search-box-advice input {
-  border: none;
-  outline: none;
-  background: transparent;
-  width: 100%;
-  font-size: 0.9rem;
-  color: #111827;
-}
-
-.search-box-advice input::placeholder {
-  color: #9ca3af;
-}
-
 /* ---------- CATEGORIES ---------- */
 
 .category-buttons-wrapper {
@@ -241,6 +208,36 @@
   box-shadow: 0 8px 18px rgba(37, 99, 235, 0.35);
 }
 
+/* 🔥 Premium Join Forum Button */
+.btn-forum {
+  width: 100%;
+  padding: 16px 24px;
+  background: linear-gradient(135deg, #0f2557 0%, #1a3a7d 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  box-shadow: 0 8px 24px rgba(15, 37, 87, 0.3);
+  transition: all 0.3s ease;
+  margin-bottom: 1.8rem;
+}
+
+.btn-forum:hover {
+  background: linear-gradient(135deg, #1a3a7d 0%, #0f2557 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(15, 37, 87, 0.4);
+}
+
+.btn-forum svg {
+  flex-shrink: 0;
+}
+
 /* ---------- FAQ SECTION ---------- */
 
 .faq-section {
@@ -262,6 +259,7 @@
 .faq-header-row h2 {
   font-size: 1rem;
   font-weight: 600;
+  color: #0f2557;
 }
 
 /* Pagination */
@@ -297,6 +295,11 @@
 .page-btn:disabled {
   opacity: 0.4;
   cursor: default;
+}
+
+.page-dots {
+  padding: 0 0.3rem;
+  color: #9ca3af;
 }
 
 /* FAQ list */
@@ -338,12 +341,14 @@
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+  flex: 1;
 }
 
 .faq-question-text {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .faq-question h3 {
@@ -424,7 +429,10 @@
   }
 
   .advice-left {
+    position: relative;
+    top: 0;
     order: 2;
+    margin: 0 auto;
   }
 
   .advice-right {
@@ -455,6 +463,11 @@
   .hero-section-advice {
     width: 210px;
     height: 210px;
+  }
+
+  .btn-forum {
+    padding: 14px 20px;
+    font-size: 15px;
   }
 
   .faq-header-row {

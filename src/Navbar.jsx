@@ -46,7 +46,7 @@ const Navbar = () => {
           <li><Link to="/find-lawyer">Find a Lawyer</Link></li>
           <li><Link to="/ask-question">Ask a Free Question</Link></li>
           <li><Link to="/legal-advice">Legal Advice</Link></li>
-          <li><Link to="/about-us">About Us</Link></li>
+          
 
           {/* ✅ My Bookings */}
           {user && (
@@ -54,6 +54,7 @@ const Navbar = () => {
               <Link to="/my-bookings">My Bookings</Link>
             </li>
           )}
+          <li><Link to="/about-us">About Us</Link></li>
         </ul>
 
         {/* Right side */}

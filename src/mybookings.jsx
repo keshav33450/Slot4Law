@@ -54,6 +54,29 @@ const MyBookings = () => {
     }
   };
 
+  // 🔥 Check if booking is in the past
+  const isBookingPast = (date, time) => {
+    try {
+      // Parse date (format: "2025-12-15")
+      const [year, month, day] = date.split("-").map(Number);
+      
+      // Parse time (format: "09:00" or "9:00")
+      const [hours, minutes] = time.split(":").map(Number);
+      
+      // Create booking datetime
+      const bookingDateTime = new Date(year, month - 1, day, hours, minutes);
+      
+      // Get current datetime
+      const now = new Date();
+      
+      // Return true if booking is in the past
+      return bookingDateTime < now;
+    } catch (err) {
+      console.error("Error parsing date/time:", err);
+      return false; // If parsing fails, allow cancellation
+    }
+  };
+
   // 🔹 open confirmation modal
   const requestCancel = (booking) => {
     setConfirmCancel({
@@ -99,23 +122,35 @@ const MyBookings = () => {
         {bookings.length === 0 ? (
           <p className="empty-text">You have no bookings yet.</p>
         ) : (
-          bookings.map((b) => (
-            <div className="booking-card" key={b.id}>
-              <div className="booking-info">
-                <h4>{b.lawyerName}</h4>
-                <p><strong>Date:</strong> {b.date}</p>
-                <p><strong>Time:</strong> {b.time}</p>
-                <p className="email">{b.lawyerEmail}</p>
-              </div>
+          bookings.map((b) => {
+            const isPast = isBookingPast(b.date, b.time);
 
-              <button
-                className="cancel-btn"
-                onClick={() => requestCancel(b)}
+            return (
+              <div 
+                className={`booking-card ${isPast ? 'past-booking' : ''}`} 
+                key={b.id}
               >
-                Cancel
-              </button>
-            </div>
-          ))
+                <div className="booking-info">
+                  <h4>{b.lawyerName}</h4>
+                  <p><strong>Date:</strong> {b.date}</p>
+                  <p><strong>Time:</strong> {b.time}</p>
+                  <p className="email">{b.lawyerEmail}</p>
+                  {isPast && (
+                    <span className="past-badge">Completed</span>
+                  )}
+                </div>
+
+                <button
+                  className="cancel-btn"
+                  onClick={() => requestCancel(b)}
+                  disabled={isPast}
+                  title={isPast ? "Cannot cancel past bookings" : "Cancel booking"}
+                >
+                  {isPast ? "Completed" : "Cancel"}
+                </button>
+              </div>
+            );
+          })
         )}
       </div>
 
@@ -154,4 +189,3 @@ const MyBookings = () => {
 };
 
 export default MyBookings;
-  
