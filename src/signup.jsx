@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Auth.css";
 import { useAuth } from "./AuthContext";
+import logo from "./assets/logo login.jpeg";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -29,6 +30,13 @@ const SignUp = () => {
     <div className="auth-container">
       <div className="auth-left">
         <h1 className="brand-title">LegalMeet.</h1>
+        <div className="brand-icon">
+  <img
+    src={logo}
+    alt="LegalMeet Logo"
+    className="brand-logo"
+  />
+</div>
       </div>
 
       <div className="auth-right">

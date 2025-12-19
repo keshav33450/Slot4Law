@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import "./Auth.css";
 import { useAuth } from "./AuthContext";
+import logo from "./assets/logo login.jpeg";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -43,18 +44,13 @@ const Login = () => {
       <div className="auth-left">
         <h1 className="brand-title">LegalMeet.</h1>
         <div className="brand-icon">
-          <svg
-            width="150"
-            height="150"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-          >
-            <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z" />
-            <path d="M9 12l2 2 4-4" />
-          </svg>
-        </div>
+  <img
+    src={logo}
+    alt="LegalMeet Logo"
+    className="brand-logo"
+  />
+</div>
+
       </div>
 
       {/* Right Side - Form */}
