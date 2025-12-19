@@ -20,27 +20,24 @@
 .navbar-logo {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 12px;
   cursor: pointer;
-  transition: opacity 0.3s ease;
 }
 
-.navbar-logo:hover {
-  opacity: 0.8;
-}
-
-.logo-icon {
-  width: 32px;
-  height: 32px;
-  color: #000000;
+.logo-img {
+  height: 42px;
+  width: 42px;
+  object-fit: contain;
+  background-color: #f5ddd4;
 }
 
 .logo-text {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: 700;
-  color: #000000;
-  font-family: 'Poppins', sans-serif;
+  color: #0f2557;
+  letter-spacing: 0.5px;
 }
+
 
 /* Navigation Menu */
 .navbar-menu {

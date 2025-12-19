@@ -4,6 +4,8 @@ import Navbar from "./Navbar";            // keep your existing Navbar
 import "./aboutus.css";                  // styles (see below)
 import { db } from "./firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import heroImage from "./assets/main.jpeg";
+import lady from "./assets/lady.jpeg"; 
 
 const AboutUs = () => {
   const [name, setName] = useState("");
@@ -74,14 +76,14 @@ const AboutUs = () => {
           <div className="about-hero-left">
             <div className="about-main-circle">
               <img
-                src="https://images.unsplash.com/photo-1528460033278-a6ba57020470?w=800&h=800&fit=crop"
+                src={heroImage}
                 alt="Graduate in legal attire"
               />
             </div>
 
             <div className="about-secondary-circle">
               <img
-                src="https://images.unsplash.com/photo-1530124566582-a618bc2615dc?w=600&h=600&fit=crop"
+                src={lady}
                 alt="Justice scales"
               />
             </div>

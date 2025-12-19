@@ -218,3 +218,8 @@
     font-size: 13px;
   }
 }
+.brand-logo {
+  width: 150px;
+  height: auto;
+  object-fit: contain;
+}

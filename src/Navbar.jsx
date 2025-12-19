@@ -4,6 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { User } from "lucide-react";
 import "./Navbar.css";
 import { useAuth } from "./AuthContext";
+import logo from "./assets/logo.jpeg";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -33,12 +34,15 @@ const Navbar = () => {
       <div className="navbar-container">
 
         {/* Logo */}
-        <div className="navbar-logo" onClick={() => navigate("/home")}>
-          <svg className="logo-icon" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3z" />
-          </svg>
-          <span className="logo-text">LegalMeet</span>
-        </div>
+    <div className="navbar-logo" onClick={() => navigate("/home")}>
+  <img
+    src={logo}
+    alt="LegalMeet Logo"
+    className="logo-img"
+  />
+  <span className="logo-text">LegalMeet</span>
+</div>
+
 
         {/* Navigation */}
         <ul className="navbar-menu">
