@@ -2,7 +2,8 @@ import React from 'react';
 import { Shield, Puzzle, Trophy } from 'lucide-react';
 import Navbar from './Navbar';
 import './homepage.css';
-
+import heroImage from "./assets/main.jpeg";
+import lady from "./assets/lady.jpeg"; 
 
 const HomePage = () => {
 
@@ -17,14 +18,14 @@ const HomePage = () => {
           <div className="hero-images">
             <div className="main-circle">
               <img 
-                src="https://images.unsplash.com/photo-1556157382-97eda2d62296?w=500&h=500&fit=crop" 
+                src={heroImage}
                 alt="Professional Lawyer" 
                 className="lawyer-image"
               />
             </div>
             <div className="scale-circle">
               <img 
-                src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=300&h=300&fit=crop" 
+                src={lady}
                 alt="Justice Scale" 
                 className="scale-image"
               />

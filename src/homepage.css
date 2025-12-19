@@ -6,7 +6,7 @@
 
 .home-page {
   min-height: 100vh;
-  background-color: #f5ddd4;
+  background-color: #f5f5f5;
   font-family: 'Poppins', 'Arial', sans-serif;
 }
 
@@ -180,7 +180,7 @@
 
 /* Why Choose Us Section */
 .why-choose-section {
-  background-color: #f5ddd4;
+  background-color: #f5f5f5;
   padding: 1rem 3rem 4rem 3rem;
   max-width: 1400px;
   margin: 0 auto;
@@ -200,10 +200,10 @@
 }
 
 .feature-card {
-  background-color: #ffffff;
+  background-color: #f5ddd4;
   padding: 2rem 1.8rem;
   border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8 px 20px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
@@ -216,7 +216,7 @@
 }
 
 .feature-card-special {
-  background-color: #ffffff;
+  background-color: #f5ddd4;
 }
 
 .feature-title-main {

@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
 import './LegalAdvice.css';
 import rawQuestions from "./lawyer_queres.json";
+import heroImage from "./assets/main.jpeg";
+import lady from "./assets/lady.jpeg"; 
 
 const LegalAdvice = () => {
   const navigate = useNavigate();
@@ -145,14 +147,14 @@ const LegalAdvice = () => {
             <div className="hero-section-advice">
               <div className="lawyer-circle-advice">
                 <img
-                  src="https://images.unsplash.com/photo-1556157382-97eda2d62296?w=400&h=400&fit=crop"
+                  src={heroImage}
                   alt="Legal Professional"
                   className="lawyer-img-advice"
                 />
               </div>
               <div className="scale-badge-advice">
                 <img
-                  src="https://cdn-icons-png.flaticon.com/512/3308/3308395.png"
+                  src={lady}
                   alt="Justice Scale"
                   className="scale-img-advice"
                 />
