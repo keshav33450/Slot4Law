@@ -17,9 +17,8 @@ const MyBookings = () => {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
 
-  // 🔹 modal state
+  // modal state
   const [confirmCancel, setConfirmCancel] = useState(null);
-  // confirmCancel = { bookingId, lawyerName } | null
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (u) => {
@@ -54,30 +53,33 @@ const MyBookings = () => {
     }
   };
 
-  // 🔥 Check if booking is in the past
+  // ✅ Check if booking is in the past (date + time)
   const isBookingPast = (date, time) => {
     try {
-      // Parse date (format: "2025-12-15")
+      if (!date || !time) return false;
+
+      // date is "2025-12-19"
       const [year, month, day] = date.split("-").map(Number);
-      
-      // Parse time (format: "09:00" or "9:00")
-      const [hours, minutes] = time.split(":").map(Number);
-      
-      // Create booking datetime
-      const bookingDateTime = new Date(year, month - 1, day, hours, minutes);
-      
-      // Get current datetime
+
+      let raw = time.trim();          // e.g. "9:00" or "4:00"
+      let [h, m] = raw.split(":").map(Number);
+
+      // If you always store 9–12 as morning and 1–7 as afternoon,
+      // convert 1–7 to 13–19 so 4:00 becomes 16:00 (4 PM).
+      if (h >= 1 && h <= 7) {
+        h += 12;
+      }
+
+      const bookingDateTime = new Date(year, month - 1, day, h, m || 0);
       const now = new Date();
-      
-      // Return true if booking is in the past
+
       return bookingDateTime < now;
     } catch (err) {
       console.error("Error parsing date/time:", err);
-      return false; // If parsing fails, allow cancellation
+      return false;
     }
   };
 
-  // 🔹 open confirmation modal
   const requestCancel = (booking) => {
     setConfirmCancel({
       bookingId: booking.id,
@@ -85,14 +87,11 @@ const MyBookings = () => {
     });
   };
 
-  // 🔹 confirm cancellation
   const confirmCancelBooking = async () => {
     if (!confirmCancel) return;
 
     try {
-      await deleteDoc(
-        doc(db, "bookings", confirmCancel.bookingId)
-      );
+      await deleteDoc(doc(db, "bookings", confirmCancel.bookingId));
       setBookings((prev) =>
         prev.filter((b) => b.id !== confirmCancel.bookingId)
       );
@@ -126,8 +125,8 @@ const MyBookings = () => {
             const isPast = isBookingPast(b.date, b.time);
 
             return (
-              <div 
-                className={`booking-card ${isPast ? 'past-booking' : ''}`} 
+              <div
+                className={`booking-card ${isPast ? "past-booking" : ""}`}
                 key={b.id}
               >
                 <div className="booking-info">
@@ -154,7 +153,6 @@ const MyBookings = () => {
         )}
       </div>
 
-      {/* ✅ Custom confirmation modal */}
       {confirmCancel && (
         <div className="confirm-overlay">
           <div className="confirm-card">
