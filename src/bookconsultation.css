@@ -150,6 +150,65 @@
   padding: 1.5rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
+/* ==================== NAVIGATION BUTTONS ==================== */
+.nav-btn,
+.icon-btn {
+  background: linear-gradient(135deg, #0f2557 0%, #1a3a7d 100%);
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(15, 37, 87, 0.2);
+}
+
+.nav-btn:hover,
+.icon-btn:hover {
+  background: linear-gradient(135deg, #1a3a7d 0%, #0f2557 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(15, 37, 87, 0.3);
+}
+
+.nav-btn:active,
+.icon-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(15, 37, 87, 0.2);
+}
+
+/* Year display */
+.calendar-header > div > div:nth-child(1) > div:nth-child(2) {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #0f2557;
+  padding: 0 12px;
+}
+
+/* Month arrows - smaller, accent color */
+.icon-btn {
+  background: linear-gradient(135deg, #d4a574 0%, #c9985b 100%);
+  padding: 8px 14px;
+  font-size: 1.1rem;
+  font-weight: 900;
+}
+
+.icon-btn:hover {
+  background: linear-gradient(135deg, #c9985b 0%, #d4a574 100%);
+  box-shadow: 0 4px 12px rgba(212, 165, 116, 0.4);
+}
+
+/* Month display */
+.calendar-header > div > div:nth-child(2) > div:nth-child(2) {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: #0f2557;
+  padding: 0 12px;
+  min-width: 100px;
+  text-align: center;
+}
+
 
 .large-calendar {
   border: 1px solid #eee;
