@@ -13,13 +13,24 @@
   padding: 1.5rem 1.25rem 3rem;
 }
 
-/* Top heading area */
+/* 🔥 STICKY Top heading area */
 .legal-advice-top {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: #f3f4f6;
+  padding: 1.5rem 1.25rem 1rem 1.25rem;
+  margin: -1.5rem -1.25rem 1.25rem -1.25rem;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
   gap: 1rem;
-  margin-bottom: 1.25rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.legal-advice-heading {
+  display: flex;
+  flex-direction: column;
 }
 
 .legal-advice-title {
@@ -33,12 +44,31 @@
 .legal-advice-subtitle {
   font-size: 0.9rem;
   color: #6b7280;
+  margin: 0;
 }
 
 .legal-advice-count {
   font-size: 0.85rem;
   color: #6b7280;
   white-space: nowrap;
+  margin: 0;
+}
+
+/* Optional shadow on scroll */
+.legal-advice-top::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #e5e7eb 20%, #e5e7eb 80%, transparent);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.legal-advice-top.scrolled::after {
+  opacity: 1;
 }
 
 /* ---------- MAIN LAYOUT ---------- */
@@ -56,7 +86,7 @@
   justify-content: center;
   align-items: flex-start;
   position: sticky;
-  top: 100px;
+  top: 120px;
   align-self: flex-start;
 }
 
@@ -102,6 +132,7 @@
   border-radius: 999px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 }
+
 /* Decorations */
 .dec-dot-advice {
   position: absolute;
@@ -454,6 +485,11 @@
     padding-inline: 0.85rem;
   }
 
+  .legal-advice-top {
+    padding: 1.5rem 0.85rem 1rem 0.85rem;
+    margin: -1.5rem -0.85rem 1.25rem -0.85rem;
+  }
+
   .legal-advice-title {
     font-size: 1.6rem;
   }
@@ -485,4 +521,44 @@
   .faq-answer {
     padding-inline: 0.8rem;
   }
+}
+/* 🔥 STICKY Top heading area */
+.legal-advice-top {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: #f3f4f6;
+  padding: 1.5rem 0 1rem 0;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.legal-advice-heading {
+  display: flex;
+  flex-direction: column;
+}
+
+.legal-advice-title {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.2rem;
+  color: #0f2557;
+}
+
+.legal-advice-subtitle {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+.legal-advice-count {
+  font-size: 0.85rem;
+  color: #6b7280;
+  white-space: nowrap;
+  margin: 0;
 }

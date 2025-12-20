@@ -19,6 +19,7 @@ const MyBookings = () => {
 
   // modal state
   const [confirmCancel, setConfirmCancel] = useState(null);
+  const [confirmDelete, setConfirmDelete] = useState(null);
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (u) => {
@@ -58,14 +59,11 @@ const MyBookings = () => {
     try {
       if (!date || !time) return false;
 
-      // date is "2025-12-19"
       const [year, month, day] = date.split("-").map(Number);
 
-      let raw = time.trim();          // e.g. "9:00" or "4:00"
+      let raw = time.trim();
       let [h, m] = raw.split(":").map(Number);
 
-      // If you always store 9–12 as morning and 1–7 as afternoon,
-      // convert 1–7 to 13–19 so 4:00 becomes 16:00 (4 PM).
       if (h >= 1 && h <= 7) {
         h += 12;
       }
@@ -87,6 +85,13 @@ const MyBookings = () => {
     });
   };
 
+  const requestDelete = (booking) => {
+    setConfirmDelete({
+      bookingId: booking.id,
+      lawyerName: booking.lawyerName
+    });
+  };
+
   const confirmCancelBooking = async () => {
     if (!confirmCancel) return;
 
@@ -99,6 +104,21 @@ const MyBookings = () => {
       console.error("Cancel failed", err);
     } finally {
       setConfirmCancel(null);
+    }
+  };
+
+  const confirmDeleteBooking = async () => {
+    if (!confirmDelete) return;
+
+    try {
+      await deleteDoc(doc(db, "bookings", confirmDelete.bookingId));
+      setBookings((prev) =>
+        prev.filter((b) => b.id !== confirmDelete.bookingId)
+      );
+    } catch (err) {
+      console.error("Delete failed", err);
+    } finally {
+      setConfirmDelete(null);
     }
   };
 
@@ -139,20 +159,31 @@ const MyBookings = () => {
                   )}
                 </div>
 
-                <button
-                  className="cancel-btn"
-                  onClick={() => requestCancel(b)}
-                  disabled={isPast}
-                  title={isPast ? "Cannot cancel past bookings" : "Cancel booking"}
-                >
-                  {isPast ? "Completed" : "Cancel"}
-                </button>
+                <div className="booking-actions">
+                  <button
+                    className="cancel-btn"
+                    onClick={() => requestCancel(b)}
+                    disabled={isPast}
+                    title={isPast ? "Cannot cancel past bookings" : "Cancel booking"}
+                  >
+                    {isPast ? "Completed" : "Cancel"}
+                  </button>
+
+                  <button
+                    className="delete-btn"
+                    onClick={() => requestDelete(b)}
+                    title="Delete booking from history"
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             );
           })
         )}
       </div>
 
+      {/* Cancel Confirmation Modal */}
       {confirmCancel && (
         <div className="confirm-overlay">
           <div className="confirm-card">
@@ -177,6 +208,40 @@ const MyBookings = () => {
                 onClick={confirmCancelBooking}
               >
                 Yes, Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {confirmDelete && (
+        <div className="confirm-overlay">
+          <div className="confirm-card">
+            <div className="confirm-icon delete-icon">🗑</div>
+
+            <h3>Delete Booking?</h3>
+            <p>
+              Are you sure you want to permanently delete this booking with <br />
+              <strong>{confirmDelete.lawyerName}</strong>?
+            </p>
+            <p style={{ fontSize: '0.85rem', color: '#666', marginTop: '0.5rem' }}>
+              This action cannot be undone.
+            </p>
+
+            <div className="confirm-actions">
+              <button
+                className="confirm-no"
+                onClick={() => setConfirmDelete(null)}
+              >
+                No, Keep
+              </button>
+
+              <button
+                className="confirm-delete"
+                onClick={confirmDeleteBooking}
+              >
+                Yes, Delete
               </button>
             </div>
           </div>

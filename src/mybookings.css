@@ -221,4 +221,66 @@
   transform: none;
   box-shadow: none;
 }
+/* Button container */
+.booking-actions {
+  display: flex;
+  gap: 12px;
+  flex-direction: column;
+}
+
+/* Delete button */
+.delete-btn {
+  background: linear-gradient(135deg, #ff4d4f, #e63e3e);
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 14px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 8px 18px  rgba(230, 62, 62, 0.35);
+}
+
+.delete-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(230, 62, 62, 0.45);
+  background: linear-gradient(135deg, #4b5563, #374151);
+}
+
+/* Delete modal icon */
+.delete-icon {
+  background: #6b7280 !important;
+  font-size: 24px;
+}
+
+/* Delete confirmation button */
+.confirm-delete {
+  flex: 1;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, #6b7280, #4b5563);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.confirm-delete:hover {
+  background: linear-gradient(135deg, #4b5563, #374151);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .booking-actions {
+    width: 100%;
+  }
+
+  .delete-btn,
+  .cancel-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
 

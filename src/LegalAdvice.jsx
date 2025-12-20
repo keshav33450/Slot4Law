@@ -129,17 +129,18 @@ const LegalAdvice = () => {
 
       <main className="legal-advice-shell">
         <header className="legal-advice-top">
-          <div>
-            <h1 className="legal-advice-title">Legal Advice</h1>
-            <p className="legal-advice-subtitle">
-              Browse real legal questions and answers, organised by topic.
-            </p>
-          </div>
-          <p className="legal-advice-count">
-            {filteredFaqs.length} question
-            {filteredFaqs.length !== 1 ? "s" : ""} found
-          </p>
-        </header>
+  <div className="legal-advice-heading">
+    <h1 className="legal-advice-title">Legal Advice</h1>
+    <p className="legal-advice-subtitle">
+      Browse real legal questions and answers, organised by topic.
+    </p>
+  </div>
+  <p className="legal-advice-count">
+    {filteredFaqs.length} question
+    {filteredFaqs.length !== 1 ? "s" : ""} found
+  </p>
+</header>
+
 
         <section className="legal-advice-container">
           {/* Sticky Left Sidebar */}
