@@ -40,7 +40,7 @@ const Navbar = () => {
     alt="LegalMeet Logo"
     className="logo-img"
   />
-  <span className="logo-text">LegalMeet</span>
+  <span className="logo-text">Slot4Law</span>
 </div>
 
 
@@ -58,7 +58,7 @@ const Navbar = () => {
               <Link to="/my-bookings">My Bookings</Link>
             </li>
           )}
-          <li><Link to="/about-us">About Us</Link></li>
+          <li><Link to="/about-us">Contact Us</Link></li>
         </ul>
 
         {/* Right side */}

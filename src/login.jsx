@@ -42,7 +42,7 @@ const Login = () => {
     <div className="auth-container">
       {/* Left Side - Branding */}
       <div className="auth-left">
-        <h1 className="brand-title">LegalMeet.</h1>
+        <h1 className="brand-title">Slot4Law.</h1>
         <div className="brand-icon">
   <img
     src={logo}

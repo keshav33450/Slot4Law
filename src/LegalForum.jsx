@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import "./LegalForum.css";
 
-import Reply from "./reply";
+import Reply from "./Reply";
 
 import {
   collection,
