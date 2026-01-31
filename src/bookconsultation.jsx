@@ -116,7 +116,7 @@ const [alertModal, setAlertModal] = useState(null);
         return;
       }
 
-      const url = `http://localhost:5000/api/bookings/${encodeURIComponent(lawyerEmail)}`;
+      const url = `${process.env.REACT_APP_API_URL}/api/bookings/${encodeURIComponent(lawyerEmail)}`;
       const res = await fetch(url);
       if (!res.ok) {
         console.warn("Bookings endpoint returned", res.status);
@@ -281,7 +281,7 @@ const handleSubmit = async () => {
   }
 
   // 📧 EMAIL BACKEND
-  await fetch("http://localhost:5000/api/book-consultation", {
+ await fetch(`${process.env.REACT_APP_API_URL}/api/book-consultation`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
