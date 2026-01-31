@@ -17,9 +17,8 @@ const MyBookings = () => {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
 
-  // 🔹 modal state
+  // cancel modal
   const [confirmCancel, setConfirmCancel] = useState(null);
-  // confirmCancel = { bookingId, lawyerName } | null
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (u) => {
@@ -37,10 +36,7 @@ const MyBookings = () => {
 
   const fetchBookings = async (uid) => {
     try {
-      const q = query(
-        collection(db, "bookings"),
-        where("userId", "==", uid)
-      );
+      const q = query(collection(db, "bookings"), where("userId", "==", uid));
       const snap = await getDocs(q);
       const data = snap.docs.map((d) => ({
         id: d.id,
@@ -54,30 +50,19 @@ const MyBookings = () => {
     }
   };
 
-  // 🔥 Check if booking is in the past
+  // check past booking
   const isBookingPast = (date, time) => {
     try {
-      // Parse date (format: "2025-12-15")
       const [year, month, day] = date.split("-").map(Number);
-      
-      // Parse time (format: "09:00" or "9:00")
       const [hours, minutes] = time.split(":").map(Number);
-      
-      // Create booking datetime
       const bookingDateTime = new Date(year, month - 1, day, hours, minutes);
-      
-      // Get current datetime
-      const now = new Date();
-      
-      // Return true if booking is in the past
-      return bookingDateTime < now;
-    } catch (err) {
-      console.error("Error parsing date/time:", err);
-      return false; // If parsing fails, allow cancellation
+      return bookingDateTime < new Date();
+    } catch {
+      return false;
     }
   };
 
-  // 🔹 open confirmation modal
+  // open cancel modal
   const requestCancel = (booking) => {
     setConfirmCancel({
       bookingId: booking.id,
@@ -85,21 +70,29 @@ const MyBookings = () => {
     });
   };
 
-  // 🔹 confirm cancellation
+  // confirm cancel
   const confirmCancelBooking = async () => {
     if (!confirmCancel) return;
 
     try {
-      await deleteDoc(
-        doc(db, "bookings", confirmCancel.bookingId)
-      );
-      setBookings((prev) =>
-        prev.filter((b) => b.id !== confirmCancel.bookingId)
+      await deleteDoc(doc(db, "bookings", confirmCancel.bookingId));
+      setBookings(prev =>
+        prev.filter(b => b.id !== confirmCancel.bookingId)
       );
     } catch (err) {
       console.error("Cancel failed", err);
     } finally {
       setConfirmCancel(null);
+    }
+  };
+
+  // 🔥 DELETE BUTTON (instant delete)
+  const deleteBooking = async (bookingId) => {
+    try {
+      await deleteDoc(doc(db, "bookings", bookingId));
+      setBookings(prev => prev.filter(b => b.id !== bookingId));
+    } catch (err) {
+      console.error("Delete failed", err);
     }
   };
 
@@ -126,8 +119,8 @@ const MyBookings = () => {
             const isPast = isBookingPast(b.date, b.time);
 
             return (
-              <div 
-                className={`booking-card ${isPast ? 'past-booking' : ''}`} 
+              <div
+                className={`booking-card ${isPast ? "past-booking" : ""}`}
                 key={b.id}
               >
                 <div className="booking-info">
@@ -135,26 +128,36 @@ const MyBookings = () => {
                   <p><strong>Date:</strong> {b.date}</p>
                   <p><strong>Time:</strong> {b.time}</p>
                   <p className="email">{b.lawyerEmail}</p>
+
                   {isPast && (
                     <span className="past-badge">Completed</span>
                   )}
                 </div>
 
-                <button
-                  className="cancel-btn"
-                  onClick={() => requestCancel(b)}
-                  disabled={isPast}
-                  title={isPast ? "Cannot cancel past bookings" : "Cancel booking"}
-                >
-                  {isPast ? "Completed" : "Cancel"}
-                </button>
+                <div className="booking-actions">
+                  {!isPast && (
+                    <button
+                      className="cancel-btn"
+                      onClick={() => requestCancel(b)}
+                    >
+                      Cancel
+                    </button>
+                  )}
+
+                  <button
+                    className="delete-btn"
+                    onClick={() => deleteBooking(b.id)}
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             );
           })
         )}
       </div>
 
-      {/* ✅ Custom confirmation modal */}
+      {/* Cancel confirmation modal */}
       {confirmCancel && (
         <div className="confirm-overlay">
           <div className="confirm-card">
@@ -162,7 +165,7 @@ const MyBookings = () => {
 
             <h3>Cancel Booking?</h3>
             <p>
-              Are you sure you want to cancel your consultation with <br />
+              Are you sure you want to cancel consultation with <br />
               <strong>{confirmCancel.lawyerName}</strong>?
             </p>
 
