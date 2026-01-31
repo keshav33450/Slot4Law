@@ -455,3 +455,124 @@
     transform: translate(-50%, 0);
   }
 }
+/* ================= EXTRA MOBILE RESPONSIVE ================= */
+
+/* Small tablets */
+@media (max-width: 820px) {
+  .booking-container {
+    padding: 1.2rem;
+    gap: 1.2rem;
+  }
+
+  .lawyer-profile-card,
+  .booking-form,
+  .calendar-section,
+  .time-section {
+    padding: 1.2rem;
+  }
+
+  .lawyer-profile-img {
+    width: 120px;
+    height: 120px;
+  }
+
+  .calendar-day {
+    min-height: 48px;
+  }
+}
+
+/* Phones */
+@media (max-width: 540px) {
+  .booking-container {
+    padding: 0.8rem;
+    gap: 1rem;
+  }
+
+  .lawyer-profile-card,
+  .booking-form,
+  .calendar-section,
+  .time-section {
+    padding: 1rem;
+    border-radius: 12px;
+  }
+
+  .lawyer-profile-info h2 {
+    font-size: 1.4rem;
+  }
+
+  .consultation-note {
+    font-size: 0.85rem;
+  }
+
+  .booking-form h3 {
+    font-size: 1.1rem;
+  }
+
+  .booking-form input,
+  .booking-form select,
+  .booking-form textarea {
+    font-size: 0.9rem;
+    padding: 0.75rem;
+  }
+
+  .calendar-day {
+    min-height: 40px;
+    padding: 4px;
+    font-size: 0.85rem;
+  }
+
+  .wd {
+    font-size: 9px;
+  }
+
+  .nav-btn,
+  .icon-btn {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+  }
+
+  .time-slot-btn {
+    padding: 0.6rem 0.7rem;
+    font-size: 0.85rem;
+  }
+
+  .confirm-booking-btn {
+    padding: 0.85rem;
+    font-size: 0.95rem;
+  }
+
+  /* Modal fits phone */
+  .booking-confirmation-card {
+    padding: 22px;
+    max-width: 95%;
+  }
+
+  .confirmation-actions {
+    flex-direction: column;
+  }
+
+  .conf-btn {
+    width: 100%;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 360px) {
+  .lawyer-profile-img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .lawyer-profile-info h2 {
+    font-size: 1.2rem;
+  }
+
+  .calendar-day {
+    min-height: 34px;
+    font-size: 0.75rem;
+  }
+
+  .time-slot-btn {
+    font-size: 0.8rem;
+  }
+}

@@ -326,3 +326,123 @@
 .contact-status-error {
   color: #b91c1c;
 }
+/* ================= EXTRA MOBILE RESPONSIVE ================= */
+
+/* Tablets */
+@media (max-width: 820px) {
+  .about-hero {
+    gap: 2rem;
+  }
+
+  .about-hero-left {
+    width: 240px;
+    height: 240px;
+  }
+
+  .about-secondary-circle {
+    width: 100px;
+    height: 100px;
+  }
+
+  .about-contact-card {
+    padding: 1.1rem 1.2rem;
+  }
+
+  .about-stats-section {
+    gap: 0.8rem;
+  }
+}
+
+/* Phones */
+@media (max-width: 540px) {
+  .about-hero {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.5rem;
+  }
+
+  .about-hero-left {
+    width: 200px;
+    height: 200px;
+  }
+
+  .about-secondary-circle {
+    width: 80px;
+    height: 80px;
+    border-width: 6px;
+  }
+
+  .about-dot,
+  .about-ring {
+    display: none; /* hide decorations on small screens */
+  }
+
+  .about-contact-title {
+    font-size: 1.6rem;
+  }
+
+  .about-title {
+    font-size: 1.5rem;
+  }
+
+  .about-contact-card {
+    padding: 1rem;
+  }
+
+  .about-contact-value {
+    font-size: 0.9rem;
+  }
+
+  .about-text-grid {
+    font-size: 0.92rem;
+    line-height: 1.6;
+  }
+
+  .about-stats-section {
+    flex-direction: column;
+  }
+
+  .about-stats-card {
+    width: 100%;
+    text-align: center;
+  }
+
+  .contact-row input,
+  .contact-row textarea {
+    font-size: 0.85rem;
+  }
+
+  .contact-submit-btn {
+    font-size: 0.9rem;
+    padding: 0.65rem;
+  }
+}
+
+/* Very small devices */
+@media (max-width: 380px) {
+  .about-shell {
+    padding: 1rem 0.8rem 2.5rem;
+  }
+
+  .about-hero-left {
+    width: 170px;
+    height: 170px;
+  }
+
+  .about-contact-title {
+    font-size: 1.4rem;
+  }
+
+  .about-title {
+    font-size: 1.3rem;
+  }
+
+  .about-subtitle {
+    font-size: 0.85rem;
+  }
+
+  .about-text-grid {
+    font-size: 0.88rem;
+  }
+}

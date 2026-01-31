@@ -36,3 +36,48 @@
     transform: rotate(360deg);
   }
 }
+/* ================= MOBILE RESPONSIVE ADDITIONS ================= */
+
+/* Tablets */
+@media (max-width: 768px) {
+  .App-header {
+    padding: 2rem 1rem;
+    font-size: calc(9px + 2.2vmin);
+  }
+
+  .App-logo {
+    height: 32vmin;
+  }
+}
+
+/* Phones */
+@media (max-width: 480px) {
+  .App-header {
+    min-height: 100svh;
+    padding: 1.5rem 1rem;
+    font-size: calc(8px + 2.5vmin);
+    text-align: center;
+  }
+
+  .App-logo {
+    height: 26vmin;
+    margin-bottom: 1rem;
+  }
+
+  .App-link {
+    font-size: 0.95rem;
+    word-break: break-word;
+  }
+}
+
+/* Very small devices */
+@media (max-width: 360px) {
+  .App-header {
+    font-size: calc(7px + 2.8vmin);
+    padding: 1.2rem 0.8rem;
+  }
+
+  .App-logo {
+    height: 22vmin;
+  }
+}

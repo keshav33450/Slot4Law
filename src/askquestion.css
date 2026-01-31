@@ -376,3 +376,101 @@
     height: 60px;
   }
 }
+/* ================= EXTRA MOBILE RESPONSIVE ================= */
+
+/* Small phones */
+@media (max-width: 540px) {
+  .chat-wrapper {
+    padding: 1rem 0;
+  }
+
+  .chat-content-wrapper {
+    padding: 0 0.6rem;
+  }
+
+  .chat-header {
+    margin-bottom: 1.2rem;
+  }
+
+  .chat-header h1 {
+    font-size: 1.6rem;
+  }
+
+  .chat-header p {
+    font-size: 0.9rem;
+  }
+
+  .messages-area {
+    max-height: 55vh;
+    padding: 0.6rem 0;
+  }
+
+  .message {
+    padding: 0.8rem 0.6rem;
+  }
+
+  .user-message .message-content p,
+  .bot-message .message-content p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .message-time {
+    font-size: 0.7rem;
+  }
+
+  .input-area {
+    padding: 0.6rem 0.4rem;
+  }
+
+  .input-wrapper {
+    border-radius: 20px;
+    padding: 0.3rem 0.5rem 0.3rem 0.8rem;
+  }
+
+  .input-wrapper input {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.3rem;
+  }
+
+  .send-button {
+    width: 36px;
+    height: 36px;
+  }
+
+  /* hide heavy decorations on small screens */
+  .decorative-scales,
+  .decorative-dots-chat,
+  .decorative-shapes {
+    display: none;
+  }
+}
+
+/* Very small devices */
+@media (max-width: 380px) {
+  .chat-header h1 {
+    font-size: 1.4rem;
+  }
+
+  .chat-header p {
+    font-size: 0.85rem;
+  }
+
+  .messages-area {
+    max-height: 50vh;
+  }
+
+  .user-message .message-content p,
+  .bot-message .message-content p {
+    font-size: 0.85rem;
+  }
+
+  .input-wrapper input {
+    font-size: 0.85rem;
+  }
+
+  .send-button {
+    width: 32px;
+    height: 32px;
+  }
+}

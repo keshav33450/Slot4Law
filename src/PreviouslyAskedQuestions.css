@@ -426,3 +426,90 @@
 .btn-back:active {
   transform: translateX(0);
 }
+/* ================= EXTRA MOBILE OPTIMIZATION ================= */
+
+/* Small phones */
+@media (max-width: 480px) {
+
+  .paq-header-container {
+    flex-direction: column;
+    gap: 12px;
+    padding: 0 16px;
+  }
+
+  .paq-btn-create {
+    width: 100%;
+    text-align: center;
+  }
+
+  .paq-hero {
+    padding: 40px 16px;
+  }
+
+  .paq-hero-title {
+    font-size: 24px;
+    line-height: 1.25;
+  }
+
+  .paq-category-chips {
+    gap: 8px;
+  }
+
+  .paq-chip {
+    padding: 8px 14px;
+    font-size: 12px;
+  }
+
+  .paq-questions-section {
+    padding: 40px 16px;
+  }
+
+  .paq-question-card {
+    padding: 18px;
+  }
+
+  .paq-question-title {
+    font-size: 17px;
+  }
+
+  .paq-question-desc {
+    font-size: 13px;
+  }
+
+  .paq-question-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .paq-btn-view {
+    width: 100%;
+    text-align: center;
+  }
+
+  .btn-back {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Ultra small devices */
+@media (max-width: 360px) {
+  .paq-hero-title {
+    font-size: 20px;
+  }
+
+  .paq-circle-outer {
+    width: 180px;
+    height: 180px;
+  }
+
+  .paq-circle-inner {
+    width: 130px;
+    height: 130px;
+  }
+
+  .paq-person-icon {
+    font-size: 46px;
+  }
+}
