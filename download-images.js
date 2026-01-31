@@ -2,13 +2,18 @@ import fs from "fs";
 import path from "path";
 import https from "https";
 
-const jsonPath = "./src/lawyer_queres.json";
-
- // change if needed
+const jsonPath = "./src/lawyers.json";
 const outputDir = "./public/lawyers";
+const placeholder = "/lawyers/placeholder.jpg";
 
 if (!fs.existsSync(outputDir)) {
   fs.mkdirSync(outputDir, { recursive: true });
+}
+
+// create placeholder image if missing
+const placeholderPath = path.join(outputDir, "placeholder.jpg");
+if (!fs.existsSync(placeholderPath)) {
+  fs.writeFileSync(placeholderPath, "");
 }
 
 const data = JSON.parse(fs.readFileSync(jsonPath, "utf-8"));
@@ -17,7 +22,6 @@ const download = (url, filePath) => {
   return new Promise((resolve) => {
     https.get(url, (res) => {
       if (res.statusCode !== 200) {
-        console.log("❌ Failed:", url);
         resolve(false);
         return;
       }
@@ -27,13 +31,9 @@ const download = (url, filePath) => {
 
       file.on("finish", () => {
         file.close();
-        console.log("✅ Downloaded:", filePath);
         resolve(true);
       });
-    }).on("error", () => {
-      console.log("❌ Error:", url);
-      resolve(false);
-    });
+    }).on("error", () => resolve(false));
   });
 };
 
@@ -42,21 +42,20 @@ const run = async () => {
     const lawyer = data[i];
     const url = lawyer.image_url;
 
-    if (!url || !url.startsWith("http")) continue;
-
-    const ext = path.extname(url.split("?")[0]) || ".jpg";
-    const filename = `${i}${ext}`;
+    const filename = `${i}.jpg`;
     const savePath = path.join(outputDir, filename);
 
-    const ok = await download(url, savePath);
+    let ok = false;
 
-    if (ok) {
-      lawyer.image_url = `/lawyers/${filename}`;
+    if (url && url.startsWith("http")) {
+      ok = await download(url, savePath);
     }
+
+    lawyer.image_url = ok ? `/lawyers/${filename}` : placeholder;
   }
 
   fs.writeFileSync(jsonPath, JSON.stringify(data, null, 2));
-  console.log("\n🎉 Done! JSON updated.");
+  console.log("🎉 JSON updated with safe local paths.");
 };
 
 run();
